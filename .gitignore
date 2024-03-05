@@ -1,0 +1,10 @@
+#GLOBAL
+info.txt
+jsconfig.json
+**/.eslintrc.json
+**/config.json
+**/start.bat
+**/commit.bat
+**/.vscode/*
+**/node_modules/*
+dist/
