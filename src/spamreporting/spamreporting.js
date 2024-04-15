@@ -1,15 +1,37 @@
 // Handles the SpamReporting event to process a reported message.
 function onSpamReport(event) {
-    console.log("SPAM REPORTED !")
-    // Do nothing but report event completed.
+  // Get the Base64-encoded EML format of a reported message.
+  Office.context.mailbox.item.getAsFileAsync({ asyncContext: event }, (asyncResult) => {
+    if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+      console.log(`Error encountered during message processing: ${asyncResult.error.message}`);
+      return;
+    }
+
+    // Get the user's responses to the options and text box in the preprocessing dialog.
+    const spamReportingEvent = asyncResult.asyncContext;
+    const reportedOptions = spamReportingEvent.options;
+    const additionalInfo = spamReportingEvent.freeText;
+
+    // Run additional processing operations here.
+
+    /**
+     * Signals that the spam-reporting event has completed processing.
+     * It then moves the reported message to the Junk Email folder of the mailbox, then
+     * shows a post-processing dialog to the user. If an error occurs while the message
+     * is being processed, the `onErrorDeleteItem` property determines whether the message
+     * will be deleted.
+     */
+    const event = asyncResult.asyncContext;
     event.completed({
-        onErrorDeleteItem: true,
-        showPostProcessingDialog: {
-          title: "Contoso Spam Reporting",
-          description: "Thank you for reporting this message.",
-        },
-      });
-  }
-  
+      onErrorDeleteItem: true,
+      moveItemTo: Office.MailboxEnums.MoveSpamItemTo.JunkFolder,
+      showPostProcessingDialog: {
+        title: "Contoso Spam Reporting",
+        description: "Thank you for reporting this message.",
+      },
+    });
+  });
+}
+
 
 Office.actions.associate("onSpamReport", onSpamReport);
