@@ -104,7 +104,7 @@
           <bt:Url id="MoreInfo.Url" DefaultValue="https://www.contoso.com/spamreporting"/>
         </bt:Urls>
         <bt:ShortStrings>
-          <bt:String id="spamButton.Label" DefaultValue="Report Spam Message"/>
+          <bt:String id="spamButton.Label" DefaultValue="Antiphish"/>
           <bt:String id="PreProcessingDialog.Label" DefaultValue="Report Spam Message"/>
           <bt:String id="OptionsTitle.Label" DefaultValue="Why are you reporting this email?"/>
           <bt:String id="FreeText.Label" DefaultValue="Provide additional information, if any:"/>
